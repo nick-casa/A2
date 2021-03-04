@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------------*/
 /* replace.c                                                          */
-/* Author: ???                                                        */
+/* Author: Nickolas Casalinuovo                                       */
 /*--------------------------------------------------------------------*/
 
 #include "str.h"
@@ -18,23 +18,68 @@
    maximum number of characters in strings pcLine, pcFrom, or pcTo. */
 
 static size_t replaceAndWrite(const char *pcLine,
-                              const char *pcFrom, const char *pcTo)
-{
-   /* Insert your code here. */
+                              const char *pcFrom, const char *pcTo){
+   int toLen, fromLen;
+   int i;
+   size_t counter; 
+   char *searchP;
+
+   assert(pcLine != NULL);
+   assert(pcFrom != NULL);
+   assert(pcTo != NULL);
+
+   toLen = (int) Str_getLength(pcTo);
+   fromLen = (int) Str_getLength(pcFrom);
+   counter = 0;
+
+   /* Case: if pcFrom is empty */
+   if(fromLen == 0){
+      while(*pcLine != '\0'){
+         fprintf(stdout, "%c", *pcLine);
+         pcLine++;
+      }
+      return 0;     
+   }
+   /* Case: pcFrom is not empty */
+   
+   /* Scan pcLine */
+   while((searchP = Str_search(pcLine,pcFrom)) != NULL ){
+      /* if the pointer is the same as the */
+      /* beginning of a pcFrom string */
+      while(pcLine != searchP){
+         fprintf(stdout, "%c", *pcLine);
+         pcLine++;
+      }
+      /* print pcTo to stdout*/
+      for(i =0;i<toLen;i++){
+         fprintf(stdout, "%c", pcTo[i]);
+         /* move pointer past corresponding */
+         /* character in pcLine */
+      }
+      pcLine+=fromLen;
+      counter++;
+   }
+   if(*pcLine != '\0'){
+      fprintf(stdout, "%s", pcLine);
+   }
+   return counter;  
 }
 
 /*--------------------------------------------------------------------*/
 
 /* If argc is unequal to 3, then write an error message to stderr and
    return EXIT_FAILURE.  Otherwise...
+
    If argv[1] is the empty string, then write each line of stdin to
    stdout, write a message to stderr indicating that 0 replacements
    were made, and return 0.  Otherwise...
+
    Write each line of stdin to stdout with each distinct occurrence of
    argv[1] replaced with argv[2], write a message to stderr indicating
    how many replacements were made, and return 0.
    Assume that no line of stdin consists of more than MAX_LINE_SIZE-1
    characters. */
+
 
 int main(int argc, char *argv[])
 {
@@ -55,9 +100,13 @@ int main(int argc, char *argv[])
    pcFrom = argv[1];
    pcTo = argv[2];
 
-   while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL)
-      /* Insert your code here. */
+   while (fgets(acLine, MAX_LINE_SIZE, stdin) != NULL){
+      uReplaceCount += replaceAndWrite(acLine,pcFrom,pcTo);
+   }
 
    fprintf(stderr, "%lu replacements\n", (unsigned long)uReplaceCount);
-   return 0;
+   exit(EXIT_SUCCESS);
 }
+
+
+ 
