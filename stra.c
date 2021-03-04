@@ -108,19 +108,3 @@ char* Str_search(const char haystack[], const char needle[]){
 	}
 	return NULL;
 }
-
-/*
-int main(void){
-	char dest[] = {'a','b','c'};
-	const char iSrc[] = {'c','d'};
-	printf("%lu\n ",Str_getLength(dest));
-   
-	printf("%lu\n ",(sizeof(char)*Str_getLength(dest)));
-   	printf("%lu\n ",Str_getLength(iSrc));
-   	printf("%lu\n ",(sizeof(char)*Str_getLength(iSrc)));
-   
-	printf("%lu\n ",(sizeof(char)*Str_getLength(dest)+sizeof(char)*Str_getLength(iSrc)));
-   
-
-}
-*/

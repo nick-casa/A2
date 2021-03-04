@@ -18,7 +18,6 @@
 
 size_t Str_getLength(const char *iSrc){
    size_t uLength;
-   int i;
    assert(iSrc != NULL);
    
    uLength = 0;
@@ -50,7 +49,6 @@ char *Str_copy(char *dest, const char *iSrc){
 
 char *Str_concat(char *dest, const char *iSrc){
    char *fDest;
-   int i;
    assert(iSrc != NULL);
    assert(dest != NULL);
 		   
@@ -70,7 +68,6 @@ char *Str_concat(char *dest, const char *iSrc){
 }
 
 int Str_compare(const char *compA, const char *compB){
-	int i;
 	int compare;
 
 	assert(compA != NULL);
@@ -91,12 +88,11 @@ int Str_compare(const char *compA, const char *compB){
 	}
 	if(*compA<*compB)compare--;
 	else if(*compA>*compB)compare++;
-	 
 	return compare;	
 }
 
 char* Str_search(const char *haystack, const char *needle){
-	int i,j;
+   
 	int match;
 	char *fNeedle;
 	int counter; 
